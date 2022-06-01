@@ -9,7 +9,10 @@ interface IUser {
   likeSingers?: string[];
   likeAlbums?: string[];
 }
-const userSchema = new mongoose.Schema<IUser>(
+interface Time {
+  timestamps: boolean;
+}
+const userSchema = new mongoose.Schema<IUser, Time>(
   {
     userName: { type: String, required: true },
     email: { type: String, required: true },
@@ -22,6 +25,6 @@ const userSchema = new mongoose.Schema<IUser>(
   { timestamps: true }
 );
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model<IUser>('User', userSchema);
 
 export default User;

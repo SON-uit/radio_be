@@ -1,10 +1,11 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from "mongoose";
 
 interface ITrack {
   name: string;
-  singers: string[];
+  singers?: Types.ObjectId[];
   urlTrack: string;
   urlImage: string;
+  lyrics: string[];
   runtime: number;
   likes?: number;
   views?: number;
@@ -15,11 +16,12 @@ const trackSchema = new mongoose.Schema<ITrack>(
     singers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Singer'
+        ref: "Singer"
       }
     ],
+    lyrics: [{ type: String, required: true }],
     urlTrack: { type: String, required: true },
-    urlImage: { type: String, required: true },
+    urlImage: { type: String, default: "test.jpg" },
     runtime: { type: Number, required: true },
     likes: { type: Number },
     views: { type: Number }
@@ -27,6 +29,6 @@ const trackSchema = new mongoose.Schema<ITrack>(
   { timestamps: true }
 );
 
-const Track = mongoose.model('Track', trackSchema);
+const Track = mongoose.model("Track", trackSchema);
 
 export default Track;

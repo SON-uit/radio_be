@@ -1,10 +1,10 @@
-import { Request, Response } from 'express';
-import User from '../models/user.mode';
+import { Request, Response } from "express";
+import User from "../models/user.mode";
 
-class userController {
+class UserController {
   async register(req: Request, res: Response) {
-    return res.send('hello');
+    return res.send("hello");
   }
 }
 
-export = new userController();
+export = new UserController();

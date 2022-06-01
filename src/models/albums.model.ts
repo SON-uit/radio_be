@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 interface IAlbum {
   name: string;
-  tracks: string[];
-  singers: string[];
+  tracks: Types.ObjectId[];
+  singers: Types.ObjectId[];
   genres: string[];
   description: string;
   urlImage: string;
