@@ -41,7 +41,7 @@ class TrackController {
         lyrics: lyrics
       };
       const newTrack = await Track.create(trackObject);
-      return res.status(200).json({
+      return res.status(201).json({
         message: "Success",
         data: newTrack
       });

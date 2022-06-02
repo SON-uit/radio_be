@@ -3,7 +3,7 @@ import http from "http";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
 import morgan from "morgan";
-
+import cors from "cors";
 import dbConnect from "./config/mongoDbConnection";
 import errorHandler from "./controllers/errorHandler.controller";
 dotenv.config({ path: "./.env" });
@@ -21,7 +21,7 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
-
+app.use(cors());
 import userApi from "./routes/v1/users.api";
 import trackApi from "./routes/v1/tracks.api";
 import singerApi from "./routes/v1/singers.api";
