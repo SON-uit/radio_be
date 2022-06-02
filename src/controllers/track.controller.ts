@@ -38,7 +38,8 @@ class TrackController {
         urlTrack: uploadAudio.url,
         urlImage: uploadImage.url,
         runtime: 231,
-        lyrics: lyrics
+        lyrics: lyrics,
+        singers: ["6298c09a1b3d8fda2209a8c1"]
       };
       const newTrack = await Track.create(trackObject);
       return res.status(201).json({
@@ -48,7 +49,7 @@ class TrackController {
     }
   };
   async getAllTrack(req: Request, res: Response) {
-    const allTrack = await Track.find();
+    const allTrack = await Track.find().populate({ path: "singers", select: { _id: 1, name: 1 } });
     if (allTrack) {
       return res.status(200).json({
         message: "Success",

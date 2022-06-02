@@ -40,8 +40,12 @@ class SingerController {
       data: newSinger
     });
   });
-  /*  getAllSinger = catchAsync(async (req: Request, res: Response) => {
-    console.log("hello");
-  }); */
+  getAllSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const singers = await Singer.find();
+    return res.status(200).json({
+      message: "Success",
+      data: singers
+    });
+  });
 }
 export = new SingerController();
