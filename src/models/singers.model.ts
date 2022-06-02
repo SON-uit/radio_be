@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 interface ISinger {
   name: string;
@@ -14,13 +14,13 @@ const singerSchema = new mongoose.Schema<ISinger>(
     name: { type: String, required: true },
     urlImage: { type: String, required: true },
     description: { type: String, required: true },
-    like: { type: Number },
+    like: { type: Number, default: 0 },
     type: [{ type: String, required: true }],
     nation: { type: String, required: true }
   },
   { timestamps: true }
 );
 
-const Singer = mongoose.model('Singer', singerSchema);
+const Singer = mongoose.model("Singer", singerSchema);
 
 export default Singer;

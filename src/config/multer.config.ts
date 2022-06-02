@@ -1,7 +1,4 @@
-import express from "express";
-import TrackController from "../../controllers/track.controller";
 import multer from "multer";
-const router = express.Router();
 
 const upload = multer({
   storage: multer.diskStorage({}),
@@ -12,9 +9,9 @@ const upload = multer({
       cb(null, true);
     } else {
       cb(new Error("Wrong Type"));
+      console.log("Error", "Wrong type upload");
     }
   }
 });
-router.post("/", upload.single("trackAudio"), TrackController.createNewTrack);
-router.get("/", TrackController.getAllTrack);
-export default router;
+
+export default upload;

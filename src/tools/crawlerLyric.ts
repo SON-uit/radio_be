@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer";
-const crawlerLyric = async (url: string) => {
+const crawlerLyric = async (url: string): Promise<string[]> => {
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   await page.goto(url, {
@@ -10,6 +10,7 @@ const crawlerLyric = async (url: string) => {
     const result: string[] = lyricDetails?.split("\n") || [];
     return result;
   });
+  await browser.close();
   return Promise.resolve(lyrics);
 };
 export default crawlerLyric;
