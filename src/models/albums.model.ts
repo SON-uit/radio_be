@@ -1,9 +1,8 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose, { Types } from "mongoose";
 
 interface IAlbum {
   name: string;
   tracks: Types.ObjectId[];
-  singers: Types.ObjectId[];
   genres: string[];
   description: string;
   urlImage: string;
@@ -14,8 +13,7 @@ interface IAlbum {
 const albumSchema = new mongoose.Schema<IAlbum>(
   {
     name: { type: String, required: true },
-    tracks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Track' }],
-    singers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Singer' }],
+    tracks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Track" }],
     genres: [{ type: String }],
     description: { type: String, required: true },
     urlImage: { type: String },
@@ -25,6 +23,6 @@ const albumSchema = new mongoose.Schema<IAlbum>(
   { timestamps: true }
 );
 
-const Album = mongoose.model('Album', albumSchema);
+const Album = mongoose.model("Album", albumSchema);
 
-export default albumSchema;
+export default Album;

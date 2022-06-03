@@ -3,9 +3,6 @@ import Track from "../models/tracks.model";
 import * as cloudinary from "../config/cloudinaryConnection";
 import crawlerLyric from "../tools/crawlerLyric";
 import { Request, Response, NextFunction } from "express";
-const urlLyrics =
-  "https://www.megalobiz.com/lrc/maker/Ex%27s+Hate+Me+B+Ray%2C+Masew%2C+AMee+Karaoke+Full+beat+G%E1%BB%91c.55305551";
-
 interface ConvertFile {
   fileName: string;
   filePath: string;
@@ -21,7 +18,9 @@ class TrackController {
     };
   };
   createNewTrack = async (req: Request, res: Response) => {
-    const lyrics = await crawlerLyric(urlLyrics);
+    const { name, runtime, linkLyric, singers } = req.body;
+
+    const lyrics = await crawlerLyric(linkLyric);
     if (req.files) {
       const files = req.files as { [fieldname: string]: Express.Multer.File[] }; // set for upload.fields
       const trackAudio = files.trackAudio[0];
@@ -34,12 +33,12 @@ class TrackController {
       const uploadImage = await cloudinary.uploadImage(convertImage.filePath, convertImage.fileName);
 
       const trackObject = {
-        name: "Ex's Hate Me",
+        name: name,
         urlTrack: uploadAudio.url,
         urlImage: uploadImage.url,
-        runtime: 231,
+        runtime: runtime * 1,
         lyrics: lyrics,
-        singers: ["6298c09a1b3d8fda2209a8c1"]
+        singers: JSON.parse(singers)
       };
       const newTrack = await Track.create(trackObject);
       return res.status(201).json({

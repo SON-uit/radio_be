@@ -2,7 +2,7 @@ import mongoose, { Types } from "mongoose";
 
 interface ITrack {
   name: string;
-  singers?: Types.ObjectId[];
+  singers: Types.ObjectId[];
   urlTrack: string;
   urlImage: string;
   lyrics: string[];
