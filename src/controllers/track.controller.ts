@@ -29,8 +29,14 @@ class TrackController {
       const convertAudio = this.convertFile(trackAudio);
       const convertImage = this.convertFile(trackImage);
 
-      const uploadAudio = await cloudinary.uploadAudio(convertAudio.filePath, convertAudio.fileName);
-      const uploadImage = await cloudinary.uploadImage(convertImage.filePath, convertImage.fileName);
+      const uploadAudio = await cloudinary.uploadAudio(
+        convertAudio.filePath,
+        convertAudio.fileName
+      );
+      const uploadImage = await cloudinary.uploadImage(
+        convertImage.filePath,
+        convertImage.fileName
+      );
 
       const trackObject = {
         name: name,
@@ -42,7 +48,7 @@ class TrackController {
       };
       const newTrack = await Track.create(trackObject);
       return res.status(201).json({
-        message: "Success",
+        status: "Success",
         data: newTrack
       });
     }
@@ -51,7 +57,7 @@ class TrackController {
     const allTrack = await Track.find().populate({ path: "singers", select: { _id: 1, name: 1 } });
     if (allTrack) {
       return res.status(200).json({
-        message: "Success",
+        status: "Success",
         data: allTrack
       });
     }

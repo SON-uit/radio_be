@@ -1,14 +1,5 @@
 import mongoose, { Types } from "mongoose";
-
-interface IAlbum {
-  name: string;
-  tracks: Types.ObjectId[];
-  genres: string[];
-  description: string;
-  urlImage: string;
-  view?: number;
-  like?: number;
-}
+import { IAlbum } from "../types/types.interface";
 
 const albumSchema = new mongoose.Schema<IAlbum>(
   {

@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
 
-interface ISinger {
-  name: string;
-  urlImage: string;
-  description: string;
-  like?: number;
-  type: string[];
-  nation: string;
-}
+import { ISinger } from "../types/types.interface";
 
 const singerSchema = new mongoose.Schema<ISinger>(
   {

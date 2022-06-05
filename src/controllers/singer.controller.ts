@@ -4,8 +4,7 @@ import Singer from "../models/singers.model";
 import catchAsync from "../helpers/catchAsync";
 import AppError from "../helpers/appError";
 import { uploadImage } from "../config/cloudinaryConnection";
-import { url } from "inspector";
-
+import APIFeatures from "../helpers/APIFeatures";
 interface ConvertFile {
   fileName: string;
   filePath: string;
@@ -36,14 +35,15 @@ class SingerController {
     };
     const newSinger = await Singer.create(singerObj);
     return res.status(200).json({
-      message: "Success",
+      status: "Success",
       data: newSinger
     });
   });
   getAllSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const singers = await Singer.find();
+    const features = new APIFeatures(Singer.find(), req.query).filter().fields().sort().paginate();
+    const singers = await features.query;
     return res.status(200).json({
-      message: "Success",
+      status: "Success",
       data: singers
     });
   });

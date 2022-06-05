@@ -1,6 +1,7 @@
 import express from "express";
 
 import SingerController from "../../controllers/singer.controller";
+import AuthController from "../../controllers/auth.controller";
 import multerUpload from "../../config/multer.config";
 const router = express.Router();
 

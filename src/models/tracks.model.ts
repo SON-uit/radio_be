@@ -1,15 +1,7 @@
 import mongoose, { Types } from "mongoose";
 
-interface ITrack {
-  name: string;
-  singers: Types.ObjectId[];
-  urlTrack: string;
-  urlImage: string;
-  lyrics: string[];
-  runtime: number;
-  likes?: number;
-  views?: number;
-}
+import { ITrack } from "../types/types.interface";
+
 const trackSchema = new mongoose.Schema<ITrack>(
   {
     name: { type: String, required: true },

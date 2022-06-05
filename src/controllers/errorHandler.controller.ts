@@ -46,6 +46,9 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
     sendErrorProduct(err, res); // goi den global hanling middelware
     next();
   } */
-  console.log(err);
+  return res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message
+  });
 };
 export default errorHandler;

@@ -32,14 +32,14 @@ class AlbumController {
     };
     const newAlbum = await Album.create(albumObj);
     return res.status(200).json({
-      message: "Success",
+      status: "Success",
       data: newAlbum
     });
   });
   getAllAlbum = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const singers = await Album.find();
     return res.status(200).json({
-      message: "Success",
+      status: "Success",
       data: singers
     });
   });

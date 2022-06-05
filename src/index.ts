@@ -2,24 +2,45 @@ import express from "express";
 import http from "http";
 import * as dotenv from "dotenv";
 import bodyParser from "body-parser";
+import session from "express-session";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 import dbConnect from "./config/mongoDbConnection";
 import errorHandler from "./controllers/errorHandler.controller";
+import * as interfaceTypes from "./types/types.interface";
 dotenv.config({ path: "./.env" });
 const app = express();
 const port = process.env.PORT || 3000;
 
 // connect database
 const connectMongoDB = new dbConnect(process.env.DB_USER || "", process.env.DB_PASSWORD || "");
-connectMongoDB.connect();
 
 //create server
 const server = http.createServer(app);
 
 //Midellware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+declare module "express-session" {
+  interface SessionData {
+    user: interfaceTypes.IUser;
+  }
+}
+app.use(
+  session({
+    secret: "radionsecretsessionkey",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 60 * 60 * 1000 * 24 * 3, // 3days
+      secure: false,
+      httpOnly: true
+    }
+  })
+);
 app.use(morgan("dev"));
 app.use(cors());
 
