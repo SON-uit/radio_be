@@ -11,9 +11,23 @@ const albumSchema = new mongoose.Schema<IAlbum>(
     view: { type: Number },
     like: { type: Number }
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-
+//virtual
+/* albumSchema.virtual("numOfview").get(function (this: IAlbum) {
+  return this.genres.length * 10;
+}); */
+albumSchema.pre(/^find/, function (next): void {
+  this.populate({
+    path: "tracks",
+    select: "singers name urlTrack lyrics",
+    populate: {
+      path: "singers",
+      select: "name like "
+    }
+  });
+  next();
+});
 const Album = mongoose.model("Album", albumSchema);
 
 export default Album;

@@ -18,8 +18,10 @@ interface ITrack {
   urlImage: string;
   lyrics: string[];
   runtime: number;
-  likes?: number;
-  views?: number;
+  likes: number;
+  views: number;
+  genres: string[];
+  rankPoint?: number;
 }
 
 interface IAlbum {

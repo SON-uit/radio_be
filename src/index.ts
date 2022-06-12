@@ -6,7 +6,10 @@ import session from "express-session";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
+import redis from "redis";
+if (process.env.REDIS_PORT) {
+  const redisClient = redis.createClient();
+}
 import dbConnect from "./config/mongoDbConnection";
 import errorHandler from "./controllers/errorHandler.controller";
 import * as interfaceTypes from "./types/types.interface";

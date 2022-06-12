@@ -7,4 +7,7 @@ const router = express.Router();
 
 router.post("/", multerUpload.single("singerImg"), SingerController.createNewSinger);
 router.get("/", SingerController.getAllSinger);
+
+//Get all tracks of singer
+router.get("/:singerId/tracks", SingerController.getAllTrackOfSinger);
 export default router;

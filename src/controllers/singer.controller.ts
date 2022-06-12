@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-
+import mongoose from "mongoose";
 import Singer from "../models/singers.model";
+import Track from "../models/tracks.model";
 import catchAsync from "../helpers/catchAsync";
 import AppError from "../helpers/appError";
 import { uploadImage } from "../config/cloudinaryConnection";
@@ -40,11 +41,32 @@ class SingerController {
     });
   });
   getAllSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const features = new APIFeatures(Singer.find(), req.query).filter().fields().sort().paginate();
-    const singers = await features.query;
+    const queryData = new APIFeatures(Singer.find(), req.query)
+      .filter()
+      .search()
+      .fields()
+      .sort()
+      .paginate();
+    const singers = await queryData.query;
     return res.status(200).json({
       status: "Success",
       data: singers
+    });
+  });
+  getAllTrackOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
+    const tracks = await Track.aggregate([
+      {
+        $match: {
+          // covert string to object Id
+          singers: { $elemMatch: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } }
+          /* genres: { $elemMatch: { $eq: req.query.genres } } */
+        }
+      }
+    ]);
+    return res.status(200).json({
+      status: "Success",
+      data: tracks
     });
   });
 }

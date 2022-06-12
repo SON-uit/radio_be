@@ -1,12 +1,13 @@
-import mongoose, { Types, Document } from "mongoose";
+import mongoose, { Types, Document, Model, Query } from "mongoose";
 import bcrypt from "bcrypt";
 
 import { IUser } from "../types/types.interface";
-
+import Track from "../models/tracks.model";
 // user this line to defile method for user document
 interface IUserDocument extends IUser, Document {
   isCorrectPassword: (enterPassword: string) => Promise<boolean>;
 }
+interface IUserModel extends Model<IUserDocument> {}
 const emailRegex: RegExp =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -68,7 +69,7 @@ const userSchema = new mongoose.Schema<IUserDocument>(
   },
   { timestamps: true }
 );
-
+// Pre Save User
 userSchema.pre("save", async function (next): Promise<void> {
   // only run when password modified
   if (!this.isModified("password")) return next();
@@ -79,6 +80,7 @@ userSchema.pre("save", async function (next): Promise<void> {
   next();
 });
 
+// User Methods
 userSchema.methods.isCorrectPassword = async function (
   this: IUser,
   enterPassword: string
@@ -86,6 +88,6 @@ userSchema.methods.isCorrectPassword = async function (
   const result = await bcrypt.compare(enterPassword, this.password);
   return result;
 };
-const User = mongoose.model<IUserDocument>("User", userSchema);
+const User = mongoose.model<IUserDocument, IUserModel>("User", userSchema);
 
 export default User;
