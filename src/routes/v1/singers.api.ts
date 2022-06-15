@@ -9,5 +9,7 @@ router.post("/", multerUpload.single("singerImg"), SingerController.createNewSin
 router.get("/", SingerController.getAllSinger);
 
 //Get all tracks of singer
+router.get('/:singerId', SingerController.getSingerId)
+router.get("/:singerId/albums", SingerController.getAllAlbumOfSinger)
 router.get("/:singerId/tracks", SingerController.getAllTrackOfSinger);
 export default router;

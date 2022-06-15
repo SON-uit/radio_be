@@ -6,6 +6,7 @@ import catchAsync from "../helpers/catchAsync";
 import AppError from "../helpers/appError";
 import { uploadImage } from "../config/cloudinaryConnection";
 import APIFeatures from "../helpers/APIFeatures";
+import Album from "../models/albums.model";
 interface ConvertFile {
   fileName: string;
   filePath: string;
@@ -53,13 +54,28 @@ class SingerController {
       data: singers
     });
   });
+  getSingerId = catchAsync(async (req: Request, res: Response) => {
+    const singer = await Singer.find({ _id: new mongoose.Types.ObjectId(req.params.singerId) })
+    return res.status(200).json({
+      status: "Success",
+      data: singer
+    });
+  });
   getAllTrackOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
     const tracks = await Track.aggregate([
       {
+        $lookup: {
+          from: "singers",
+          localField: "singers",
+          foreignField: "_id",
+          as: 'singers',
+        }
+      },
+      {
         $match: {
           // covert string to object Id
-          singers: { $elemMatch: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } }
+          singers: { $elemMatch: { _id: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } } }
           /* genres: { $elemMatch: { $eq: req.query.genres } } */
         }
       }
@@ -67,6 +83,38 @@ class SingerController {
     return res.status(200).json({
       status: "Success",
       data: tracks
+    });
+  });
+  getAllAlbumOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
+    const albums = await Album.aggregate([
+      {
+        $lookup: {
+          from: "tracks",
+          localField: "tracks",
+          foreignField: "_id",
+          as: 'tracksFind',
+        }
+      },
+      {
+        $lookup: {
+          from: "singers",
+          localField: "tracksFind.singers",
+          foreignField: "_id",
+          as: "singersFind",
+        }
+      },
+      {
+        $match: {
+          // covert string to object Id
+          singersFind: { $elemMatch: { _id: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } } }
+          /* genres: { $elemMatch: { $eq: req.query.genres } } */
+        }
+      }
+    ]);
+    return res.status(200).json({
+      status: "Success",
+      data: albums
     });
   });
 }
