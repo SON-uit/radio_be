@@ -43,6 +43,17 @@ class AlbumController {
       data: singers
     });
   });
+  /*  getAllAlbumofSinger = catchAsync(async (req: Request, res: Response,next: NextFunction) => {
+    const singerId= await Album.aggregate([
+      {$lookup: {
+        
+      }}
+    ])
+    return res.status(200).json({
+      status: "Success",
+      data: albums
+    })
+  }) */
 }
 
 export = new AlbumController();

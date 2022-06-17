@@ -26,7 +26,8 @@ class AuthController {
     return res.status(200).json({
       status: "Success",
       data: {
-        token: signToken
+        token: signToken,
+        user: newUser
       }
     });
   });
@@ -35,15 +36,17 @@ class AuthController {
     if (!email || !password) {
       return next(new AppError("Please enter a email or password", 404));
     }
-    const user = await User.findOne({ email: email }).select("password"); // add password to compare hash password
+    let user = await User.findOne({ email: email }).select("password"); // add password to compare hash password
     if (!user || !(await user.isCorrectPassword(password))) {
       return next(new AppError("Invalid Email or Incorrect Password", 404));
     }
-    const signToken = this.signToken(user._id);
+    user = await User.findOne({ email: email }).select("-password");
+    const signToken = this.signToken(user?._id);
     return res.status(200).json({
       status: "Success",
       data: {
-        token: signToken
+        token: signToken,
+        user
       }
     });
   });
