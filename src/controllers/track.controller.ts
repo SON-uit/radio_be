@@ -88,40 +88,6 @@ class TrackController {
       data: "Successfully Upload Geners"
     });
   });
-  getTop5Track = catchAsync(async (req: Request, res: Response) => {
-    const result = await Track.aggregate([
-      //pipeline,
-      { $unwind: "$genres" },
-      {
-        $group: {
-          _id: "$genres",
-          tracks: { $push: { name: "$name", view: "$views", rankPoint: "$rankPoint" } }
-        }
-      },
-      { $addFields: { genre: "$_id" } },
-      { $unwind: "$tracks" },
-      { $sort: { "tracks.rankPoint": -1 } },
-      {
-        $group: {
-          _id: "$genre",
-          tracks: {
-            $push: { name: "$tracks.name", view: "$tracks.views", rankPoint: "$tracks.rankPoint" }
-          }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          top5: { $slice: ["$tracks", 5] }, // max number of elements returned from the start of the array
-          genres: "$_id"
-        }
-      }
-    ]);
-    return res.status(200).send({
-      message: "success",
-      data: result
-    });
-  });
 }
 
 export = new TrackController();

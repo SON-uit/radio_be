@@ -46,15 +46,19 @@ app.use(
 );
 app.use(morgan("dev"));
 app.use(cors());
-
+//automation
+import { rankingJob } from "./feature/rankingAuto";
+rankingJob.start();
 import userApi from "./routes/v1/users.api";
 import trackApi from "./routes/v1/tracks.api";
 import singerApi from "./routes/v1/singers.api";
 import albumApi from "./routes/v1/album.api";
+import rankApi from "./routes/v1/ranking.api";
 app.use("/v1/api/users", userApi);
 app.use("/v1/api/tracks", trackApi);
 app.use("/v1/api/singers", singerApi);
 app.use("/v1/api/albums", albumApi);
+app.use("/v1/api/ranks", rankApi);
 //Error hanler Middelware
 app.use(errorHandler);
 server.listen(port, () => {

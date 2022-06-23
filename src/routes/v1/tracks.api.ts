@@ -13,7 +13,6 @@ router.post(
   TrackController.createNewTrack
 );
 router.get("/", TrackController.getAllTrack);
-router.get("/top5", TrackController.getTop5Track);
 router.patch("/:trackId/uploadView", TrackController.uploadView);
 router.patch("/:trackId/uploadGeners", TrackController.uploadGeners);
 export default router;

@@ -42,5 +42,18 @@ interface ISinger {
   type: string[];
   nation: string;
 }
-
-export { IUser, ITrack, IAlbum, ISinger };
+interface IRank {
+  rank: [
+    {
+      top5: [
+        {
+          name: string;
+          trackId: string;
+        }
+      ];
+      genres: string;
+    }
+  ];
+  date: Date;
+}
+export { IUser, ITrack, IAlbum, ISinger, IRank };
