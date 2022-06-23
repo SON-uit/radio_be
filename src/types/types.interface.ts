@@ -30,8 +30,8 @@ interface IAlbum {
   genres: string[];
   description: string;
   urlImage: string;
-  view?: number;
-  like?: number;
+  views?: number;
+  likes?: number;
 }
 
 interface ISinger {
@@ -43,17 +43,13 @@ interface ISinger {
   nation: string;
 }
 interface IRank {
-  rank: [
+  topRank: [
     {
-      top5: [
-        {
-          name: string;
-          trackId: string;
-        }
-      ];
-      genres: string;
+      name: string;
+      trackId: string;
     }
   ];
+  genre: string;
   date: Date;
 }
 export { IUser, ITrack, IAlbum, ISinger, IRank };

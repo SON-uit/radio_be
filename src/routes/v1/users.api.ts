@@ -8,5 +8,8 @@ router.post("/login", authController.login);
 router.get("/getUser", authController.checkLogin, userController.getOneUser);
 
 // User Like Track
-router.patch("/like/:trackId", authController.checkLogin, userController.likeTrack);
+router.use(authController.checkLogin);
+router.patch("/like/singer/:singerId", userController.likeSinger);
+router.patch("/like/track/:trackId", userController.likeTrack);
+router.patch("/like/album/:albumId", userController.likeAlbum);
 export default router;

@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import mongoose from "mongoose";
 import Album from "../models/albums.model";
 import catchAsync from "../helpers/catchAsync";
 import { uploadImage } from "../config/cloudinaryConnection";
+
 interface ConvertFile {
   fileName: string;
   filePath: string;
@@ -41,6 +43,19 @@ class AlbumController {
     return res.status(200).json({
       status: "Success",
       data: singers
+    });
+  });
+  updateView = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const { albumId } = req.params;
+    if (albumId) {
+      await Album.findOneAndUpdate(
+        { _id: new mongoose.Types.ObjectId(albumId) },
+        { $inc: { views: 1 } }
+      );
+    }
+    return res.status(200).json({
+      status: "Success",
+      data: "Update view album successfully"
     });
   });
   /*  getAllAlbumofSinger = catchAsync(async (req: Request, res: Response,next: NextFunction) => {

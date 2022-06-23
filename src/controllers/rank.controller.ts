@@ -3,6 +3,8 @@ import catchAsync from "../helpers/catchAsync";
 import { Request, Response, NextFunction } from "express";
 class rankController {
   getTrackRankByDate = catchAsync(async (req: Request, res: Response) => {
+    const { genre } = req.body;
+    console.log(genre);
     const result = await Rank.find({
       // can't not use $and in date
       date: {

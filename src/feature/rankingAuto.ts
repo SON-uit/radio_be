@@ -32,28 +32,13 @@ async function rankingTop5TrackByGenders() {
       {
         $project: {
           _id: 0,
-          top5: { $slice: ["$tracks", 5] }, // max number of elements returned from the start of the array
-          genres: "$_id"
+          topRank: { $slice: ["$tracks", 5] }, // max number of elements returned from the start of the array
+          genre: "$_id"
         }
       },
       {
         $addFields: {
           date: { $toDate: new Date(Date.now()).toISOString() }
-        }
-      },
-      {
-        $group: {
-          _id: "$date",
-          rank: {
-            $push: { top5: "$top5", genres: "$genres" }
-          }
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          rank: 1,
-          date: "$_id"
         }
       },
       {
@@ -68,7 +53,7 @@ async function rankingTop5TrackByGenders() {
   }
 }
 const rankingJob = new CronJob(
-  "*0 0  * * *", // run at 00:00:00
+  "*/15 * * * * *", // run at 00:00:00
   async function () {
     console.log("Ranking Start");
     await rankingTop5TrackByGenders();

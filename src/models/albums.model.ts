@@ -8,8 +8,8 @@ const albumSchema = new mongoose.Schema<IAlbum>(
     genres: [{ type: String }],
     description: { type: String, required: true },
     urlImage: { type: String },
-    view: { type: Number },
-    like: { type: Number }
+    views: { type: Number },
+    likes: { type: Number }
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

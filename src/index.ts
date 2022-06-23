@@ -47,8 +47,8 @@ app.use(
 app.use(morgan("dev"));
 app.use(cors());
 //automation
-import { rankingJob } from "./feature/rankingAuto";
-rankingJob.start();
+/* import { rankingJob } from "./feature/rankingAuto";
+rankingJob.start(); */
 import userApi from "./routes/v1/users.api";
 import trackApi from "./routes/v1/tracks.api";
 import singerApi from "./routes/v1/singers.api";
