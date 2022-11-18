@@ -12,7 +12,7 @@ class rankController {
           date: {
             // can't not use $and in date
             $lte: new Date(Date.now()), //to
-            $gte: new Date(Date.now() - 60 * 60 * 24 * 1000) //from yesterday
+            $gte: new Date(Date.now() - 2 * 60 * 60 * 24 * 1000) //from yesterday
           },
           genre: genreOptions
         }

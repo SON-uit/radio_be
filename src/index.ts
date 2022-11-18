@@ -7,9 +7,9 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import redis from "redis";
-if (process.env.REDIS_PORT) {
-  const redisClient = redis.createClient();
-}
+//if (process.env.REDIS_PORT) {
+// const redisClient = redis.createClient();
+//}
 import dbConnect from "./config/mongoDbConnection";
 import errorHandler from "./controllers/errorHandler.controller";
 import * as interfaceTypes from "./types/types.interface";
@@ -54,13 +54,18 @@ import trackApi from "./routes/v1/tracks.api";
 import singerApi from "./routes/v1/singers.api";
 import albumApi from "./routes/v1/album.api";
 import rankApi from "./routes/v1/ranking.api";
+
 app.use("/v1/api/users", userApi);
 app.use("/v1/api/tracks", trackApi);
 app.use("/v1/api/singers", singerApi);
 app.use("/v1/api/albums", albumApi);
 app.use("/v1/api/ranks", rankApi);
+app.use("/", (req, res) => {
+  console.log("hello");
+});
 //Error hanler Middelware
 app.use(errorHandler);
 server.listen(port, () => {
+  console.log(port);
   console.log("server listening on port" + port);
 });

@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc && node build/index.js",
+    "build": "tsc",
     "start": "nodemon src/index.ts",
-    "product": "set NODE_ENV=production && nodemon src/index.ts"
+    "product": "set NODE_ENV=production && nodemon src/index.ts",
+    "deploy": "vercel deploy --prod"
   },
   "author": "",
   "license": "ISC",

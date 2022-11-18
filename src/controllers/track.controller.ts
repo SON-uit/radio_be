@@ -56,6 +56,7 @@ class TrackController {
     }
   });
   getAllTrack = catchAsync(async (req: Request, res: Response) => {
+    console.log("alltrack");
     const queryData = new APIFeatures(
       Track.find().populate({ path: "singers", select: { _id: 1, name: 1 } }),
       req.query
