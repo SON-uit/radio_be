@@ -39,6 +39,7 @@ class AlbumController {
     });
   });
   getAllAlbum = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    
     const singers = await Album.find();
     return res.status(200).json({
       status: "Success",
