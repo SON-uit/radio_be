@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const mongoose_1 = __importDefault(require("mongoose"));
 const users_mode_1 = __importDefault(require("../models/users.mode"));
-const tracks_model_1 = __importDefault(require("../models/tracks.model"));
 const albums_model_1 = __importDefault(require("../models/albums.model"));
 const singers_model_1 = __importDefault(require("../models/singers.model"));
 const catchAsync_1 = __importDefault(require("../helpers/catchAsync"));
@@ -35,12 +34,11 @@ class UserController {
                 const isLikeTrack = user.likeTracks && user.likeTracks.includes(new mongoose_1.default.Types.ObjectId(trackId));
                 const option = isLikeTrack ? "$pull" : "$addToSet";
                 const updateUserLikeTrack = yield users_mode_1.default.findOneAndUpdate({ email: user.email }, { [option]: { likeTracks: trackId } }, { new: true });
-                if (isLikeTrack) {
-                    yield tracks_model_1.default.findOneAndUpdate({ _id: trackId }, { $inc: { like: -1 } });
-                }
-                else {
-                    yield tracks_model_1.default.findOneAndUpdate({ _id: trackId }, { $inc: { likes: 1 } });
-                }
+                // if (isLikeTrack) {
+                //   await Track.findOneAndUpdate({ _id: trackId }, { $inc: { like: -1 } });
+                // } else {
+                //   await Track.findOneAndUpdate({ _id: trackId }, { $inc: { likes: 1 } });
+                // }
                 return res.status(200).json({
                     message: "Success",
                     data: updateUserLikeTrack

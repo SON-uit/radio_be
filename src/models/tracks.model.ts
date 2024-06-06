@@ -1,13 +1,10 @@
 import { Mode } from "fs";
 import mongoose, { Types, Query, Model, Document } from "mongoose";
 
-import { ITrack } from "../types/types.interface";
+import { ITrack, ITrackDocument, ITrackModel } from "../types/types.interface";
 
-interface ITrackDocument extends ITrack, Document {}
-interface ITrackModel extends Model<ITrackDocument> {
-  updateRankPoint: () => Promise<ITrackDocument>;
-}
-const trackSchema = new mongoose.Schema<ITrackDocument>(
+
+const trackSchema = new mongoose.Schema<any>(
   {
     name: { type: String, required: true },
     singers: [

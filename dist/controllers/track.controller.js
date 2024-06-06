@@ -77,7 +77,7 @@ class TrackController {
         }));
         this.getAllTrack = (0, catchAsync_1.default)((req, res) => __awaiter(this, void 0, void 0, function* () {
             console.log("alltrack");
-            const queryData = new APIFeatures_1.default(tracks_model_1.default.find().populate({ path: "singers", select: { _id: 1, name: 1 } }), req.query)
+            const queryData = new APIFeatures_1.default(tracks_model_1.default.find(), req.query)
                 .filter()
                 .search()
                 .fields()

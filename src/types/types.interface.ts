@@ -12,6 +12,7 @@ interface IUser {
   likeAlbums?: Types.ObjectId[];
 }
 interface ITrack {
+  save(): unknown;
   name: string;
   singers: Types.ObjectId[];
   urlTrack: string;
@@ -52,4 +53,23 @@ interface IRank {
   genre: string;
   date: Date;
 }
-export { IUser, ITrack, IAlbum, ISinger, IRank };
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface ITrackDocument{
+name:any;
+}
+interface ITrackModel {
+name:any;
+ singers:any[],
+    lyrics: any,
+    urlTrack: any,
+    urlImage: any,
+    runtime:any,
+    likes: any,
+    views: any,
+    genres: any[],
+    rankPoint: any;
+}
+interface Demo1 {
+  name:string;
+}
+export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument ,ITrackModel};
