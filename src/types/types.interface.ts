@@ -58,6 +58,10 @@ interface ITrackDocument{
 name:any;
 }
 interface ITrackModel {
+  create(trackObject: { name: any; urlTrack: string; urlImage: string; runtime: number; lyrics: string[]; singers: any; }): unknown;
+  find(): unknown;
+  findOneAndUpdate(arg0: { _id: string; }, arg1: { $inc: { views: number; }; }): unknown;
+  updateOne(arg0: { _id: string; }, arg1: { $set: { genres: any; }; }): unknown;
 name:any;
  singers:any[],
     lyrics: any,

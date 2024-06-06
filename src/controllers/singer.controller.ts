@@ -63,27 +63,27 @@ class SingerController {
   });
   getAllTrackOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
-    const tracks = await Track.aggregate([
-      {
-        $lookup: {
-          from: "singers",
-          localField: "singers",
-          foreignField: "_id",
-          as: 'singers',
-        }
-      },
-      {
-        $match: {
-          // covert string to object Id
-          singers: { $elemMatch: { _id: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } } }
-          /* genres: { $elemMatch: { $eq: req.query.genres } } */
-        }
-      }
-    ]);
-    return res.status(200).json({
-      status: "Success",
-      data: tracks
-    });
+    // const tracks = await Track.aggregate([
+    //   {
+    //     $lookup: {
+    //       from: "singers",
+    //       localField: "singers",
+    //       foreignField: "_id",
+    //       as: 'singers',
+    //     }
+    //   },
+    //   {
+    //     $match: {
+    //       // covert string to object Id
+    //       singers: { $elemMatch: { _id: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } } }
+    //       /* genres: { $elemMatch: { $eq: req.query.genres } } */
+    //     }
+    //   }
+    // ]);
+    // return res.status(200).json({
+    //   status: "Success",
+    //   data: tracks
+    // });
   });
   getAllAlbumOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });

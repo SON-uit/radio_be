@@ -28,11 +28,11 @@ class UserController {
         { [option]: { likeTracks: trackId } },
         { new: true }
       );
-      if (isLikeTrack) {
-        await Track.findOneAndUpdate({ _id: trackId }, { $inc: { like: -1 } });
-      } else {
-        await Track.findOneAndUpdate({ _id: trackId }, { $inc: { likes: 1 } });
-      }
+      // if (isLikeTrack) {
+      //   await Track.findOneAndUpdate({ _id: trackId }, { $inc: { like: -1 } });
+      // } else {
+      //   await Track.findOneAndUpdate({ _id: trackId }, { $inc: { likes: 1 } });
+      // }
       return res.status(200).json({
         message: "Success",
         data: updateUserLikeTrack
