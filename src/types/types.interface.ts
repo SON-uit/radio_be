@@ -73,5 +73,7 @@ name:any;
     genres: any[],
     rankPoint: any;
 }
-
+interface Test {
+  result:number;
+}
 export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument,ITrackModel };
