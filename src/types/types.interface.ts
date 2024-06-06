@@ -76,4 +76,8 @@ name:any;
 interface Demo1 {
   name:string;
 }
-export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument ,ITrackModel};
+
+interface Demo2 {
+  name:string
+}
+export { IUser, ITrack, IAlbum, ISinger, IRank };
