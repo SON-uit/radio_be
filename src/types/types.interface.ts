@@ -54,4 +54,5 @@ interface IRank {
 }
 interface Demo2 {
   name:string
+}
 export { IUser, ITrack, IAlbum, ISinger, IRank };
