@@ -12,6 +12,7 @@ interface IUser {
   likeAlbums?: Types.ObjectId[];
 }
 interface ITrack {
+  save(): unknown;
   name: string;
   singers: Types.ObjectId[];
   urlTrack: string;
@@ -55,4 +56,27 @@ interface IRank {
 interface Demo2 {
   name:string
 }
-export { IUser, ITrack, IAlbum, ISinger, IRank };
+
+interface ITrackDocument{
+name:any;
+}
+interface ITrackModel {
+  create(trackObject: { name: any; urlTrack: string; urlImage: string; runtime: number; lyrics: string[]; singers: any; }): unknown;
+  find(): unknown;
+  findOneAndUpdate(arg0: { _id: string; }, arg1: { $inc: { views: number; }; }): unknown;
+  updateOne(arg0: { _id: string; }, arg1: { $set: { genres: any; }; }): unknown;
+name:any;
+ singers:any[],
+    lyrics: any,
+    urlTrack: any,
+    urlImage: any,
+    runtime:any,
+    likes: any,
+    views: any,
+    genres: any[],
+    rankPoint: any;
+}
+interface Demo22 {
+  name:string;
+}
+export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument,ITrackModel };

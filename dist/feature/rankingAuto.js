@@ -8,13 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.rankingJob = void 0;
 const cron_1 = require("cron");
-const tracks_model_1 = __importDefault(require("../models/tracks.model"));
 /* import dbConnect from "../config/mongoDbConnection";
 import * as dotenv from "dotenv";
 dotenv.config({ path: "./.env" });
@@ -22,48 +18,48 @@ const connectMongoDB = new dbConnect(process.env.DB_USER || "", process.env.DB_P
 function rankingTop5TrackByGenders() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield tracks_model_1.default.aggregate([
-                //pipeline,
-                { $unwind: "$genres" },
-                {
-                    $group: {
-                        _id: "$genres",
-                        tracks: { $push: { trackId: "$_id", name: "$name", rankPoint: "$rankPoint" } }
-                    }
-                },
-                { $addFields: { genre: "$_id" } },
-                { $unwind: "$tracks" },
-                { $sort: { "tracks.rankPoint": -1 } },
-                {
-                    $group: {
-                        _id: "$genre",
-                        tracks: {
-                            $push: {
-                                name: "$tracks.name",
-                                trackId: "$tracks.trackId"
-                            }
-                        }
-                    }
-                },
-                {
-                    $project: {
-                        _id: 0,
-                        topRank: { $slice: ["$tracks", 5] },
-                        genre: "$_id"
-                    }
-                },
-                {
-                    $addFields: {
-                        date: { $toDate: new Date(Date.now()).toISOString() }
-                    }
-                },
-                {
-                    $merge: {
-                        // insert document to new collection
-                        into: "ranks"
-                    }
-                }
-            ]);
+            // await Track.aggregate([
+            //   //pipeline,
+            //   { $unwind: "$genres" },
+            //   {
+            //     $group: {
+            //       _id: "$genres",
+            //       tracks: { $push: { trackId: "$_id", name: "$name", rankPoint: "$rankPoint" } }
+            //     }
+            //   },
+            //   { $addFields: { genre: "$_id" } },
+            //   { $unwind: "$tracks" },
+            //   { $sort: { "tracks.rankPoint": -1 } },
+            //   {
+            //     $group: {
+            //       _id: "$genre",
+            //       tracks: {
+            //         $push: {
+            //           name: "$tracks.name",
+            //           trackId: "$tracks.trackId"
+            //         }
+            //       }
+            //     }
+            //   },
+            //   {
+            //     $project: {
+            //       _id: 0,
+            //       topRank: { $slice: ["$tracks", 5] }, // max number of elements returned from the start of the array
+            //       genre: "$_id"
+            //     }
+            //   },
+            //   {
+            //     $addFields: {
+            //       date: { $toDate: new Date(Date.now()).toISOString() }
+            //     }
+            //   },
+            //   {
+            //     $merge: {
+            //       // insert document to new collection
+            //       into: "ranks"
+            //     }
+            //   }
+            // ]);
         }
         catch (e) {
             console.log("Error");

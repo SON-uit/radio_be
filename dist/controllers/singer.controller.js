@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 const mongoose_1 = __importDefault(require("mongoose"));
 const singers_model_1 = __importDefault(require("../models/singers.model"));
-const tracks_model_1 = __importDefault(require("../models/tracks.model"));
 const catchAsync_1 = __importDefault(require("../helpers/catchAsync"));
 const cloudinaryConnection_1 = require("../config/cloudinaryConnection");
 const APIFeatures_1 = __importDefault(require("../helpers/APIFeatures"));
@@ -71,27 +70,27 @@ class SingerController {
         }));
         this.getAllTrackOfSinger = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
-            const tracks = yield tracks_model_1.default.aggregate([
-                {
-                    $lookup: {
-                        from: "singers",
-                        localField: "singers",
-                        foreignField: "_id",
-                        as: 'singers',
-                    }
-                },
-                {
-                    $match: {
-                        // covert string to object Id
-                        singers: { $elemMatch: { _id: { $eq: new mongoose_1.default.Types.ObjectId(req.params.singerId) } } }
-                        /* genres: { $elemMatch: { $eq: req.query.genres } } */
-                    }
-                }
-            ]);
-            return res.status(200).json({
-                status: "Success",
-                data: tracks
-            });
+            // const tracks = await Track.aggregate([
+            //   {
+            //     $lookup: {
+            //       from: "singers",
+            //       localField: "singers",
+            //       foreignField: "_id",
+            //       as: 'singers',
+            //     }
+            //   },
+            //   {
+            //     $match: {
+            //       // covert string to object Id
+            //       singers: { $elemMatch: { _id: { $eq: new mongoose.Types.ObjectId(req.params.singerId) } } }
+            //       /* genres: { $elemMatch: { $eq: req.query.genres } } */
+            //     }
+            //   }
+            // ]);
+            // return res.status(200).json({
+            //   status: "Success",
+            //   data: tracks
+            // });
         }));
         this.getAllAlbumOfSinger = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
