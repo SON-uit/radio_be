@@ -52,4 +52,6 @@ interface IRank {
   genre: string;
   date: Date;
 }
+interface Demo2 {
+  name:string
 export { IUser, ITrack, IAlbum, ISinger, IRank };
