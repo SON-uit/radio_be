@@ -80,4 +80,4 @@ interface Demo1 {
 interface Demo2 {
   name:string
 }
-export { IUser, ITrack, IAlbum, ISinger, IRank };
+export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument,ITrackModel };
