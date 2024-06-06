@@ -53,7 +53,10 @@ interface IRank {
   genre: string;
   date: Date;
 }
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Demo2 {
+  name:string
+}
+
 interface ITrackDocument{
 name:any;
 }
@@ -76,4 +79,10 @@ name:any;
 interface Test {
   result:number;
 }
+
+interface Demo22 {
+  name:string;
+}
+
+
 export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument,ITrackModel };
