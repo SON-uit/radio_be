@@ -73,11 +73,5 @@ name:any;
     genres: any[],
     rankPoint: any;
 }
-interface Demo1 {
-  name:string;
-}
 
-interface Demo2 {
-  name:string
-}
 export { IUser, ITrack, IAlbum, ISinger, IRank,ITrackDocument,ITrackModel };
