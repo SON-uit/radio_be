@@ -82,6 +82,7 @@ interface Test {
 
 interface Demo22 {
   name:string;
+  value:number;
 }
 
 
