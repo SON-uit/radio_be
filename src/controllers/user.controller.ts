@@ -15,7 +15,7 @@ class UserController {
         data: req.session.user
       });
     }
-    console.log("hello")
+    console.log("hello213213")
   });
   likeTrack = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { trackId } = req.params;

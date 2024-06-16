@@ -26,7 +26,7 @@ class UserController {
                     data: req.session.user
                 });
             }
-            console.log("hello");
+            console.log("hello213213");
         }));
         this.likeTrack = (0, catchAsync_1.default)((req, res, next) => __awaiter(this, void 0, void 0, function* () {
             const { trackId } = req.params;
