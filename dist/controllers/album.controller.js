@@ -33,7 +33,6 @@ class AlbumController {
                 const uploadedImage = yield (0, cloudinaryConnection_1.uploadImage)(convertImage.filePath, convertImage.fileName);
                 urlImage = uploadedImage.url;
             }
-            console.log("Test git");
             const albumObj = {
                 name: name,
                 tracks: JSON.parse(tracks),
