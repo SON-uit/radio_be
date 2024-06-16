@@ -32,6 +32,7 @@ class AuthController {
                 email: email,
                 confirmedPassword: confirmedPassword
             };
+            console.log("hello git sau khi rest");
             const newUser = yield users_mode_1.default.create(userObj);
             const signToken = this.signToken(newUser._id);
             return res.status(200).json({
