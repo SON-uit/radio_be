@@ -21,6 +21,7 @@ class AuthController {
       email: email,
       confirmedPassword: confirmedPassword
     };
+    console.log("hello git sau khi rest")
     const newUser = await User.create(userObj);
     const signToken = this.signToken(newUser._id);
     return res.status(200).json({
