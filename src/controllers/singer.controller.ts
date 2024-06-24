@@ -84,7 +84,7 @@ class SingerController {
     //   status: "Success",
     //   data: tracks
     // });
-    console.log("commit 1")
+    console.log("demo2")
   });
   getAllAlbumOfSinger = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     //const tracks = await Track.find({ singers: { $elemMatch: { $eq: req.params.singerId } } });
